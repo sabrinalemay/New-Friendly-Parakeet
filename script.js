@@ -7,7 +7,7 @@ var specialChar = "!@#$%^&*)(";
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-var generatePassword = document.querySelector("password");
+var generatePassword = document.querySelector("#password");
 
 function generatePassword() {
   window.alert("Your password can contain an uppercase, lowercase, and special charcter.");
