@@ -1,49 +1,78 @@
-// Assignment code here
-var passwordLength = 8;
-var password = "";
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var lowerCase = "abcdefghijklmnopqrstuvwyz";
-var specialChar = "!@#$%^&*)(";
+// Assignment code 
+
+var upperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","y","z"];
+var specialChar = ["!","@","#","$","%","^","&","*",")","("];
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-var generatePassword = document.querySelector("#password");
+// var generatePassword = document.querySelector("#password");
+
 
 function generatePassword() {
-  window.alert("Your password can contain an uppercase, lowercase, and special charcter.");
-  var passwordLength = prompt("Your password needs to be at least 8 characters long and can not exceed 128 characters long");
-  if (person == null || person =="") {
-    text = "Your password does not meet the requirements";
-  } else {
+  /* window.alert("Your password can contain an uppercase, lowercase, and special charcter."); */
+  var passwordLength = parseInt(prompt("Your password needs to be at least 8 characters long and can not exceed 128 characters long. How many characters would you like your password to be?"));
+  if (!passwordLength) {
+    alert("You must enter a number between 8 and 128");
+  } else if (passwordLength <8 || passwordLength > 128) {
+    alert("You must enter a number between 8 and 128");
+    return null;
   }
-  if (passwordLength <8 || passwordLength > 120) {
-  } else {
-  }
-var upperCase = confirm("Would you like to include uppercase letters?");
-var lowerCase = confirm("Would you like to include lowercase letters?");
-var specialChar = confirm("Would you like to include special characters?");
+var confirmUpperCase = confirm("Would you like to include uppercase letters?");
+var confirmLowerCase = confirm("Would you like to include lowercase letters?");
+var confirmSpecialChar = confirm("Would you like to include special characters?");
 
-var password ="";
-if (upperCase == true) {
-  password += upperCase1;
+if (confirmUpperCase === false && confirmLowerCase === false && confirmSpecialChar === false) {
+  choices=alert("You must select atleast one charcter type.");
+  return null;
 }
-if (lowerCase == true) {
-  password += lowerCase1;
+else if (confirmUpperCase && confirmLowerCase && confirmSpecialChar) {
+  choices = upperCase.concat(lowerCase, specialChar);
 }
-if (specialChar == true) {
-  password += specialChar1;
+else if (confirmUpperCase && confirmLowerCase) {
+  choices = upperCase.concat(lowerCase);
 }
-for (var i=0; i < passwordLength.length; i++) {
-  password += specialChar(Math.floor(Math.random() + passwordLength.length));
-} return password;
+else if (confirmLowerCase && confirmSpecialChar) {
+  choices = lowerCase.concat(specialChar);
 }
+else if (confirmUpperCase && confirmSpecialChar){
+  choices = upperCase.concat(specialChar);
+}
+else if (confirmUpperCase) {
+  choices = upperCase;
+}
+else if (confirmLowerCase) {
+  choices = lowerCase;
+}
+else if (confirmSpecialChar) {
+  choices = specialChar;
+};
+var password = [];
+
+for (var i=0; i < passwordLength; i++) {
+  var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+  password.push(pickChoices);
+} 
+var passw = password.join("");
+UserInput(passw);
+return passw;
+  }
+function UserInput(passw) {
+  document.getElementById("password").textContent = passw;
+}
+
+
+
 
 // Write password to the #password input
-function writePassword() {
-  var password = document.querySelector("#generate password");
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-}
+//function writePassword() {
+  //var password = generatePassword();
+  //var passwordText = document.querySelector("#password");
+  //passwordText.value = password;
+//}
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+// Add event listener to generate butto
+generateBtn.addEventListener("click", function(){
+  passw=generatePassword();
+  document.getElementById("password").placeholder = passw;
+});
